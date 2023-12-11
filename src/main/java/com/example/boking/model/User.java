@@ -10,15 +10,20 @@ import java.util.Collection;
 import java.util.List;
 
 
-@Data
 @Builder
 @Entity
-@RequiredArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "user")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "keycloak_id")
+    private String keycloakId;
 
     @Column(name = "firstname")
     private String firstname;
@@ -34,9 +39,6 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @Column(name = "bookedHotel")
-    private String bookings;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -71,5 +73,8 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void setKeycloakId(String keycloakId) {
     }
 }
